@@ -168,7 +168,6 @@ export const HeroSection = ({
               >
                 <div className="text-center">
                   <div className="text-[56px] font-black uppercase text-brand-primary tracking-tighter">🤔</div>
-                  <div className="text-[7px] font-mono text-text-main/30 tracking-widest uppercase">Thinking...</div>
                 </div>
               </motion.div>
 
@@ -183,7 +182,6 @@ export const HeroSection = ({
                     <span className="text-text-main text-[10px] font-bold uppercase tracking-widest mb-1.5">Full-Stack Engineer</span>
                     <div className="flex gap-2">
                       <span className="w-3 h-[1px] bg-text-main/20" />
-                      <span className="text-text-main/20 text-[8px] font-mono uppercase">2026 Batch</span>
                     </div>
                   </div>
                 </div>

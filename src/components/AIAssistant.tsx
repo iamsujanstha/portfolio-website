@@ -31,7 +31,7 @@ interface Message {
   content: string;
 }
 
-const SUJAN_AVATAR = "https://github.com/iamsujanstha.png";
+const SUJAN_AVATAR = "/chatbot-avatar.png";
 
 export const AIAssistant = () => {
     // We'll use a local mock or simplified theme check if provider is missing for now
@@ -40,16 +40,17 @@ export const AIAssistant = () => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', content: "Hi! I'm Sujan Shrestha. Feel free to ask me anything about my experience, technical skills, or if you'd like to schedule an interview!" }
+    { role: 'model', content: "Hi! I'm Sujan's AI Assistant. Ask me anything about Sujan's experience, technical skills, projects, or how to contact him!" }
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const suggestedQuestions = [
-    "Are you available for an interview?",
-    "Tell me about your projects",
-    "What are your core technical skills?",
-    "What are your hobbies?",
+    "Is Sujan available for an interview?",
+    "Tell me about Sujan's projects",
+    "What are Sujan's core skills?",
+    "What are Sujan's hobbies?",
   ];
 
   useEffect(() => {
@@ -136,10 +137,10 @@ export const AIAssistant = () => {
                   <span className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-[#0A0A0A] rounded-full"></span>
                 </div>
                 <div>
-                  <h3 className={`${theme.text} font-bold text-base tracking-tight leading-none mb-1.5`}>Sujan Shrestha</h3>
+                  <h3 className={`${theme.text} font-bold text-base tracking-tight leading-none mb-1.5`}>Sujan's AI Assistant</h3>
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                    <p className={`text-[10px] ${isDarkMode ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.2em]`}>Software Engineer</p>
+                    <p className={`text-[10px] ${isDarkMode ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.2em]`}>AI Agent</p>
                   </div>
                 </div>
               </div>
@@ -274,21 +275,91 @@ export const AIAssistant = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
+ 
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            animate={{ 
+              opacity: isHovered ? 1 : [0.9, 1, 0.9],
+              scale: isHovered ? 1.05 : 1, 
+              y: isHovered ? -8 : [0, -8, 0],
+            }}
+            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            transition={{
+              y: {
+                repeat: isHovered ? 0 : Infinity,
+                duration: 2.5,
+                ease: "easeInOut"
+              },
+              opacity: {
+                repeat: isHovered ? 0 : Infinity,
+                duration: 2.5,
+                ease: "easeInOut"
+              },
+              default: {
+                type: "spring",
+                stiffness: 300,
+                damping: 20
+              }
+            }}
+            onClick={() => setIsOpen(true)}
+            className={`mb-6 cursor-pointer px-6 py-4 rounded-2xl text-[14px] font-bold tracking-wide shadow-2xl border select-none whitespace-nowrap relative group transition-all duration-300 ${
+              isDarkMode 
+                ? 'bg-[#121212]/90 border-white/10 text-white' 
+                : 'bg-white/95 border-black/5 text-black'
+            } ${
+              isHovered 
+                ? 'border-brand-primary/50 shadow-[0_0_20px_rgba(59,130,246,0.3)]' 
+                : ''
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-primary"></span>
+              </span>
+              <span>Ask a question? 💬</span>
+            </div>
+            
+            {/* Thinking bubble connection dots */}
+            <div className={`absolute bottom-[-10px] right-8 w-3 h-3 rounded-full border transition-all duration-300 ${
+              isDarkMode ? 'bg-white border-white/20' : 'bg-black border-black/20'
+            } ${
+              isHovered ? 'border-brand-primary/50 bg-brand-primary/10 scale-110' : ''
+            }`} />
+            <div className={`absolute bottom-[-18px] right-9.5 w-2 h-2 rounded-full border transition-all duration-300 ${
+              isDarkMode ? 'bg-white border-white/20' : 'bg-black border-black/20'
+            } ${
+              isHovered ? 'border-brand-primary/50 bg-brand-primary/10 scale-110' : ''
+            }`} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+ 
       <motion.button
         animate={isOpen ? { scale: 1, rotate: 0 } : { 
-          y: [0, -10, 0],
+          scale: isHovered ? 1.08 : 1,
+          y: isHovered ? -5 : [0, -10, 0],
         }}
         transition={isOpen ? { duration: 0.2 } : { 
-          repeat: Infinity, 
+          repeat: isHovered ? 0 : Infinity, 
           duration: 3, 
           ease: "easeInOut" 
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         whileHover={{ scale: 1.1, y: -5 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-[0_15px_40px_rgba(0,0,0,0.6)] transition-all duration-500 overflow-hidden border-2 border-white/20 ${
+        className={`relative w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 overflow-hidden border-2 border-white/20 ${
           isOpen ? 'bg-white text-black' : 'bg-brand-primary text-white'
+        } ${
+          isHovered && !isOpen 
+            ? 'shadow-[0_0_25px_rgba(59,130,246,0.5)] border-brand-primary/50' 
+            : 'shadow-[0_15px_40px_rgba(0,0,0,0.6)]'
         }`}
       >
         {isOpen ? <X size={28} /> : (

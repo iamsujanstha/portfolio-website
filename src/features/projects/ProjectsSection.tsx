@@ -201,7 +201,6 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         <div className="relative z-10 flex flex-col h-full" style={{ transform: 'translateZ(40px)', transformStyle: 'preserve-3d' }}>
           <div className="flex justify-between items-start mb-6">
             <div className="flex flex-col gap-1">
-              <span className="text-[9px] font-mono text-brand-primary uppercase tracking-[0.4em] font-black">{project.category}</span>
               <h3 className="text-xl md:text-2xl font-display font-medium text-text-main tracking-tight leading-tight group-hover/card:text-brand-primary transition-colors whitespace-normal">
                 {project.title}
               </h3>
@@ -215,10 +214,10 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           <div className="relative w-full h-40 md:h-44 mb-6 rounded-2xl overflow-hidden bg-bg-dark/40 border border-border-main/50" style={{ transform: 'translateZ(50px)', transformStyle: 'preserve-3d' }}>
             {!imageError ? (
               <Image
+                fill
                 src={normalizeImageSrc(project.image) || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop'}
                 alt={project.title}
-                fill
-                className="object-cover opacity-35 group-hover/card:scale-108 group-hover/card:opacity-85 transition-all duration-1000 ease-out grayscale group-hover/card:grayscale-0"
+                className="object-cover opacity-80 group-hover/card:scale-108 group-hover/card:opacity-85 transition-all duration-1000 ease-out group-hover/card:grayscale-0"
                 sizes="(max-width: 768px) 100vw, 400px"
                 onError={() => setImageError(true)}
               />

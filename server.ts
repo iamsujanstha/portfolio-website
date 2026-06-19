@@ -3,10 +3,11 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import nodemailer from 'nodemailer';
 import path from 'path';
+import { askSujanAI } from './src/services/aiAssistantService';
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = parseInt(process.env.PORT || '3000', 10);
 
   app.use(express.json());
 
@@ -71,6 +72,23 @@ async function startServer() {
     } catch (err) {
       console.error('Nodemailer Error:', err);
       res.status(500).json({ error: 'Failed to send email' });
+    }
+  });
+
+  // API Route for AI Chat Assistant
+  app.post('/api/chat', async (req, res) => {
+    const { message, history } = req.body;
+
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+
+    try {
+      const responseText = await askSujanAI(message, history || []);
+      res.status(200).json({ text: responseText });
+    } catch (error: any) {
+      console.error("Express Chat API Error:", error);
+      res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
   });
 

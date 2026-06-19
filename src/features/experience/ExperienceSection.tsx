@@ -74,7 +74,7 @@ export const ExperienceSection = ({ cmsData, resumeData }: ExperienceSectionProp
             transition={{ duration: 0.8 }}
             className="lg:col-span-5"
           >
-            <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 italic text-text-main">{cmsData?.title || 'EXPERIENCE'}</h2>
+            <h2 className="text-4xl md:text-6xl font-display font-bold mb-8  text-text-main">{cmsData?.title || 'EXPERIENCE'}</h2>
             <p className="text-text-main/40 mb-12 font-light leading-relaxed">
               {cmsData?.subtitle ? (
                 <span dangerouslySetInnerHTML={{ __html: cmsData.subtitle }} />

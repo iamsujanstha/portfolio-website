@@ -128,7 +128,7 @@ export const ContactSection = ({ settings }: ContactProps) => {
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 italic text-text-main">LET'S CONNECT</h2>
+            <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 text-text-main">LET'S CONNECT</h2>
             <p className="text-text-main/40 mb-12 font-light leading-relaxed max-w-md">
               Have a visionary project or just want to chat about technology? I'm always open to discussing new opportunities.
             </p>
